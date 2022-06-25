@@ -169,7 +169,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\toyrobot.vcxproj">
+    <ProjectReference Include="..\toyrobot.vcxproj">
       <Project>{6a89ad0e-19e8-4ba2-9cd8-8656680e7436}</Project>
     </ProjectReference>
   </ItemGroup>

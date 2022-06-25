@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "toyrobot", "toyrobot.vcxproj", "{6A89AD0E-19E8-4BA2-9CD8-8656680E7436}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "toyrobot_test", "test\toyrobot_test\toyrobot_test.vcxproj", "{0D4BA584-D699-4375-B45D-F3D33C40E674}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "toyrobot_test", "test\toyrobot_test.vcxproj", "{0D4BA584-D699-4375-B45D-F3D33C40E674}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
