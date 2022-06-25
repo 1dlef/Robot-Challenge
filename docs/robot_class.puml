@@ -1,0 +1,17 @@
+@startuml
+class Robot {
+
+}
+
+class Controller {
+
+}
+
+class Table {
+
+}
+
+Driver - Robot : controls >
+Robot *- Wheel : have 4 >
+Robot -- Person : < owns
+@enduml
