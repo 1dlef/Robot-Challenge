@@ -131,13 +131,17 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\command.cpp" />
     <ClCompile Include="src\controller.cpp" />
+    <ClCompile Include="src\inc\direction.cpp" />
     <ClCompile Include="src\robot.cpp" />
     <ClCompile Include="src\table.cpp" />
+    <ClCompile Include="src\toyset.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\inc\command.h" />
+    <ClInclude Include="src\inc\direction.h" />
     <ClInclude Include="src\inc\robot.h" />
     <ClInclude Include="src\inc\table.h" />
+    <ClInclude Include="src\inc\toyset.h" />
     <ClInclude Include="src\inc\utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

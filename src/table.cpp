@@ -1,42 +1,44 @@
-// Keeps track of the robot
 #include "table.h"
 
-Table::Table(int _iRows, int _iColumns)
-: iMaxRow(_iRows)
-, iMaxColumn(_iColumns)
-, bRobotPresent(false)
+Table::Table(size_t _nRows, size_t _nColumns)
+: nMaxRow(_nRows)
+, nMaxColumn(_nColumns)
 {
 }
 
-int Table::getRows() const
+size_t Table::getRows() const
 {
-   return iMaxRow;
+   return nMaxRow;
 }
 
-int Table::getColumns() const
+size_t Table::getColumns() const
 {
-   return iMaxColumn;
+   return nMaxColumn;
 }
 
-bool Table::isValidXPosition(int _iRow) const
+bool Table::isValidXPosition(size_t _nRow) const
 {
-   return (_iRow > 0) && (_iRow < getRows());
+   return (_nRow > 0) && (_nRow < getRows());
 }
 
-bool Table::isValidYPosition(int _iCol) const
+bool Table::isValidYPosition(size_t _nCol) const
 {
-   return (_iCol > 0) && (_iCol < getColumns());
+   return (_nCol > 0) && (_nCol < getColumns());
 }
 
-bool Table::isValidPosition(int iRow, int iCol) const
+bool Table::isValidPosition(size_t nRow, size_t nCol) const
 {
-   const bool bValidRow = isValidXPosition(iRow);
-   const bool bValidCol = isValidYPosition(iCol);
+   const bool bValidRow = isValidXPosition(nRow);
+   const bool bValidCol = isValidYPosition(nCol);
 
    return (bValidRow && bValidCol);
 }
 
-bool Table::isRobotPresent() const
+bool Table::isValidPosition(tCoordinate coor) const
 {
-   return bRobotPresent;
+   const bool bValidRow = isValidXPosition(coor.first);
+   const bool bValidCol = isValidYPosition(coor.second);
+
+   return (bValidRow && bValidCol);
 }
+

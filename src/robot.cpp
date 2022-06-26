@@ -2,125 +2,83 @@
 
 using namespace std;
 
-Robot::Robot()
-: iXPosition(-1)
-, iYPosition(-1)
-, iDirection(DIRECTION_MAX)
-, pTable(nullptr)
-, bInsideTable(false)
+Robot::Robot(const Table& tbl)
+:table(tbl)
 {
-   mDirection.insert(make_pair(NORTH, "NORTH"));
-   mDirection.insert(make_pair(EAST, "EAST"));
-   mDirection.insert(make_pair(SOUTH, "SOUTH"));
-   mDirection.insert(make_pair(WEST, "WEST"));
 }
 
-bool Robot::place(int x, int y, int direction, Table* _pTable)
+void Robot::Move()
 {
-   if (!_pTable->isValidPosition(x, y)) return false;
+   const eDirection curDirection = direction.GetCurrentDirection();
+   size_t xCoordinate = GetCoordinate().first;
+   size_t yCoordinate = GetCoordinate().second;
 
-   iXPosition = x;
-   iYPosition = y;
-   iDirection = direction;
-   bInsideTable = true;
-   pTable = _pTable;
-
-   return true;
+   if (curDirection == DIRECTION_NORTH) SetYCoordinate(yCoordinate++);
+   else if (curDirection == DIRECTION_SOUTH) SetYCoordinate(yCoordinate--);
+   else if (curDirection == DIRECTION_EAST) SetXCoordinate(xCoordinate++);
+   else if (curDirection == DIRECTION_WEST) SetXCoordinate(xCoordinate--);
 }
 
-bool Robot::move()
+void Robot::Left()
 {
-   if (!isInsideTable()) return false;
-
-   bool result = false;
-
-   if (iDirection == NORTH) result = moveNorth();
-   else if (iDirection == SOUTH) result= moveSouth();
-   else if (iDirection == EAST) result = moveEast();
-   else if (iDirection = WEST) result= moveWest();
-
-   return result;
+   direction.RotateCounterClockwise(1);
 }
 
-void Robot::left()
+void Robot::Right()
 {
-   if (!isInsideTable()) return;
-
-   iDirection = (iDirection - 1) ;
-   if (iDirection < 0) iDirection = WEST;
+   direction.RotateClockwise(1);
 }
 
-void Robot::right()
+void Robot::Report()
 {
-   if (!isInsideTable()) return;
-
-   iDirection = (iDirection + 1) % DIRECTION_MAX;
+   size_t& xCoordinate = GetCoordinate().first;
+   size_t& yCoordinate = GetCoordinate().second;
+   printf("Output: %zu,%zu,%s", xCoordinate, yCoordinate, direction.GetDirectionString().c_str());
 }
 
-void Robot::report()
-{
-   if (!isInsideTable()) return;
-
-   auto result =  mDirection.find(iDirection);
-
-   if (result == mDirection.end()) return; // Not found
-
-   printf("Output: %d,%d,%s", iXPosition, iYPosition, mDirection[iDirection].c_str());
-}
-
-bool Robot::isInsideTable() const
-{
-   return bInsideTable && (pTable != nullptr);
-}
-
-int Robot::getXPosition() const
+size_t Robot::GetXCoordinate() const
 {
    // Move position to table
-   return iXPosition;
+   return coordinate.first;
 }
 
-int Robot::getYPosition() const
+size_t Robot::GetYCoordinate() const
 {
-   return iYPosition;
+   return coordinate.second;
 }
 
-bool Robot::moveNorth()
+void Robot::SetXCoordinate(const size_t x)
 {
-   if (!isInsideTable()) return false;
-   if (!pTable->isValidXPosition(iXPosition + 1)) return false;
+   if (!table.isValidXPosition(x)) return;
 
-   iXPosition++;
-   return true;
+   coordinate.first = x;
 }
 
-bool Robot::moveSouth()
+void Robot::SetYCoordinate(const size_t y)
 {
-   if (!isInsideTable()) return false;
-   if (!pTable->isValidXPosition(iXPosition - 1)) return false;
-
-   iXPosition--;
-   return true;
+   if (!table.isValidYPosition(y)) return;
+   coordinate.second = y;
 }
 
-bool Robot::moveEast()
+void Robot::SetCoordinate(const tCoordinate& crd)
 {
-   if (!isInsideTable()) return false;
-   if (!pTable->isValidYPosition(iYPosition + 1)) return false;
+   if (!table.isValidPosition(crd)) return;
 
-   iYPosition++;
-   return true;
+   coordinate = crd;
 }
 
-bool Robot::moveWest()
+tCoordinate& Robot::GetCoordinate()
 {
-   if (!isInsideTable()) return false;
-   if (!pTable->isValidYPosition(iYPosition - 1)) return false;
-
-   iYPosition--;
-   return true;
+   return coordinate;
 }
 
+void Robot::SetDirection(const Direction& drt)
+{
+   direction.SetCurrectDirection(drt.GetCurrentDirection());
+}
 
-
-
+Direction& Robot::GetDirection()
+{
+   return direction;
+}
 

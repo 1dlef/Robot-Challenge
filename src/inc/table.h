@@ -1,22 +1,19 @@
 #pragma once
+#include "utils.h"
 
 class Table {
 public:
-   Table(int iRow, int iColumn);
+   explicit Table(size_t nRow, size_t nColumn);
 
-   int getRows() const;
-   int getColumns() const;
+   size_t getRows() const;
+   size_t getColumns() const;
 
-   bool isValidXPosition(int iRow) const;
-   bool isValidYPosition(int iCol) const;
-   bool isValidPosition(int iRow, int iCol) const;
-
-   bool isRobotPresent() const;
+   bool isValidXPosition(size_t nRow) const;
+   bool isValidYPosition(size_t nCol) const;
+   bool isValidPosition(size_t nRow, size_t nCol) const;
+   bool isValidPosition(tCoordinate coor) const;
 
 private:
-   int iMaxRow;
-   int iMaxColumn;
-   bool bRobotPresent;
-
-   //std::vector<Robot> vRobot;
+   size_t nMaxRow;
+   size_t nMaxColumn;
 };

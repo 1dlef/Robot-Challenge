@@ -1,45 +1,31 @@
 #pragma once
-
-#include <iostream>
-#include <map>
-#include <string>
+#include "utils.h"
+#include "direction.h"
 #include "table.h"
-
-typedef enum {
-   NORTH = 0,
-   EAST,
-   SOUTH,
-   WEST,
-   DIRECTION_MAX
-} tDirection;
 
 class Robot {
 public:
-    Robot();
-    bool place(int x, int y, int direction, Table* pTable);
-    bool move();
-    void left();
-    void right();
-    void report();
+    explicit Robot(const Table& tbl);
 
-    bool isInsideTable() const;
+    void Move();
+    void Left();
+    void Right();
+    void Report();
 
-    int getXPosition() const;
-    int getYPosition() const;
+    size_t GetXCoordinate() const;
+    size_t GetYCoordinate() const;
+    void SetXCoordinate(const size_t x);
+    void SetYCoordinate(const size_t y);
+
+    void SetCoordinate(const tCoordinate& crd );
+    tCoordinate& GetCoordinate();
+
+    void SetDirection(const Direction& drt);
+    Direction& GetDirection();
 
 private:
+   tCoordinate coordinate;
+   Direction direction;
 
-   bool moveNorth();
-   bool moveSouth();
-   bool moveEast();
-   bool moveWest();
-
-   int iXPosition;
-   int iYPosition;
-   int iDirection;
-
-   bool bInsideTable;
-
-   std::map<const int, std::string> mDirection;
-   Table* pTable;
+   const Table& table;
 };
