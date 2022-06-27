@@ -3,84 +3,92 @@
 #include "robot.h"
 #include "table.h"
 #include "direction.h"
+#include "utils.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace toyrobottest
+namespace robottest
 {
-	TEST_CLASS(toyrobottest)
+	TEST_CLASS(robottest)
 	{
 	public:
-		TEST_METHOD(Place_0_0)
+		TEST_METHOD(Test1_Move)
 		{
-			//Robot robot;
+			Table table(MAX_ROW, MAX_COL);
+			Robot robot(table);
+			tCoordinate coor = std::make_pair(0, 0);
+			robot.SetCoordinate(coor);
+			robot.SetCurrectDirection(DIRECTION_EAST);
 
-			//robot.place(0, 0, 0, nullptr);
+			// Move to max row
+			for (size_t n = 0; n < MAX_ROW - 1; n++) {
+				robot.Move();
+				Assert::AreEqual(size_t(n+1), robot.GetXCoordinate());
+				Assert::AreEqual(size_t(0), robot.GetYCoordinate());
+			}
 
-			//Assert::AreEqual(0, robot.getXPosition());
-			//Assert::AreEqual(0, robot.getYPosition());
-		}
-	};
+			// Move to max col
+			robot.SetCoordinate(coor);
+			robot.SetCurrectDirection(DIRECTION_NORTH);
+			for (size_t n = 0; n < MAX_ROW - 1; n++) {
+				robot.Move();
+				Assert::AreEqual(size_t(0), robot.GetXCoordinate());
+				Assert::AreEqual(size_t(n+1), robot.GetYCoordinate());
+			}
 
-	TEST_CLASS(direction_test)
-	{
-	public:
-		TEST_METHOD(Rotate_Clockwise)
-		{
-			Direction oDirection(DIRECTION_NORTH);
-
-			oDirection.RotateClockwise(1);
-			Assert::AreEqual(int(DIRECTION_EAST), int(oDirection.GetCurrentDirection()));
-			Assert::AreEqual("EAST", oDirection.GetDirectionString().c_str());
-
-			oDirection.RotateClockwise(1);
-			Assert::AreEqual(int(DIRECTION_SOUTH), int(oDirection.GetCurrentDirection()));
-			Assert::AreEqual("SOUTH", oDirection.GetDirectionString().c_str());
-
-			oDirection.RotateClockwise(1);
-			Assert::AreEqual(int(DIRECTION_WEST), int(oDirection.GetCurrentDirection()));
-			Assert::AreEqual("WEST", oDirection.GetDirectionString().c_str());
-
-			oDirection.RotateClockwise(1);
-			Assert::AreEqual(int(DIRECTION_NORTH), int(oDirection.GetCurrentDirection()));
-			Assert::AreEqual("NORTH", oDirection.GetDirectionString().c_str());
-
-			oDirection.RotateClockwise(2);
-			Assert::AreEqual(int(DIRECTION_SOUTH), int(oDirection.GetCurrentDirection()));
-			Assert::AreEqual("SOUTH", oDirection.GetDirectionString().c_str());
-
-			oDirection.RotateClockwise(3);
-			Assert::AreEqual(int(DIRECTION_EAST), int(oDirection.GetCurrentDirection()));
-			Assert::AreEqual("EAST", oDirection.GetDirectionString().c_str());
+			// Place robot in top corner, robot should not move beyond row
+			coor = std::make_pair(4, 4);
+			robot.SetCoordinate(coor);
+			robot.SetCurrectDirection(DIRECTION_EAST);
+			robot.Move();
+			Assert::AreEqual(size_t(4), robot.GetXCoordinate());
+			Assert::AreEqual(size_t(4), robot.GetYCoordinate());
+			
+			// Place robot in top corner, robot should not move beyond column
+			robot.SetCurrectDirection(DIRECTION_NORTH);
+			robot.Move();
+			Assert::AreEqual(size_t(4), robot.GetXCoordinate());
+			Assert::AreEqual(size_t(4), robot.GetYCoordinate());
 		}
 
-		TEST_METHOD(Rotate_CounterClockwise)
+		TEST_METHOD(Test2_Left)
 		{
-			Direction oDirection(DIRECTION_NORTH);
+			Table table(MAX_ROW, MAX_COL);
+			Robot robot(table);
+			tCoordinate coor = std::make_pair(0, 0);
+			robot.SetCoordinate(coor);
+			robot.SetCurrectDirection(DIRECTION_EAST);
 
-			oDirection.RotateCounterClockwise(1);
-			Assert::AreEqual(int(DIRECTION_WEST), int(oDirection.GetCurrentDirection()));
-			Assert::AreEqual("WEST", oDirection.GetDirectionString().c_str());
+			robot.Left();
+			Assert::AreEqual("NORTH", robot.GetDirectionString().c_str());
+			robot.Left();
+			Assert::AreEqual("WEST", robot.GetDirectionString().c_str());
+			robot.Left();
+			Assert::AreEqual("SOUTH", robot.GetDirectionString().c_str());
+			robot.Left();
+			Assert::AreEqual("EAST", robot.GetDirectionString().c_str());
+		}
 
-			oDirection.RotateCounterClockwise(1);
-			Assert::AreEqual(int(DIRECTION_SOUTH), int(oDirection.GetCurrentDirection()));
-			Assert::AreEqual("SOUTH", oDirection.GetDirectionString().c_str());
+		TEST_METHOD(Test3_Right)
+		{
+			Table table(MAX_ROW, MAX_COL);
+			Robot robot(table);
+			tCoordinate coor = std::make_pair(0, 0);
+			robot.SetCoordinate(coor);
+			robot.SetCurrectDirection(DIRECTION_WEST);
 
-			oDirection.RotateCounterClockwise(1);
-			Assert::AreEqual(int(DIRECTION_EAST), int(oDirection.GetCurrentDirection()));
-			Assert::AreEqual("EAST", oDirection.GetDirectionString().c_str());
+			robot.Right();
+			Assert::AreEqual("NORTH", robot.GetDirectionString().c_str());
+			robot.Right();
+			Assert::AreEqual("EAST", robot.GetDirectionString().c_str());
+			robot.Right();
+			Assert::AreEqual("SOUTH", robot.GetDirectionString().c_str());
+			robot.Right();
+			Assert::AreEqual("WEST", robot.GetDirectionString().c_str());
+		}
 
-			oDirection.RotateCounterClockwise(1);
-			Assert::AreEqual(int(DIRECTION_NORTH), int(oDirection.GetCurrentDirection()));
-			Assert::AreEqual("NORTH", oDirection.GetDirectionString().c_str());
-
-			oDirection.RotateCounterClockwise(2);
-			Assert::AreEqual(int(DIRECTION_SOUTH), int(oDirection.GetCurrentDirection()));
-			Assert::AreEqual("SOUTH", oDirection.GetDirectionString().c_str());
-
-			oDirection.RotateCounterClockwise(3);
-			Assert::AreEqual(int(DIRECTION_WEST), int(oDirection.GetCurrentDirection()));
-			Assert::AreEqual("WEST", oDirection.GetDirectionString().c_str());
+		TEST_METHOD(Test4_Report)
+		{
 		}
 	};
 }

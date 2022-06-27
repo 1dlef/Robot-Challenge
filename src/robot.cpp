@@ -1,84 +1,39 @@
 #include "robot.h"
 
-using namespace std;
-
-Robot::Robot(const Table& tbl)
-:table(tbl)
+Robot::Robot(const Table& _tbl)
+ :Coordinate(_tbl)
 {
 }
 
-void Robot::Move()
+bool Robot::Move()
 {
-   const eDirection curDirection = direction.GetCurrentDirection();
+   const size_t curDirection = GetCurrentDirection();
    size_t xCoordinate = GetCoordinate().first;
    size_t yCoordinate = GetCoordinate().second;
 
-   if (curDirection == DIRECTION_NORTH) SetYCoordinate(yCoordinate++);
-   else if (curDirection == DIRECTION_SOUTH) SetYCoordinate(yCoordinate--);
-   else if (curDirection == DIRECTION_EAST) SetXCoordinate(xCoordinate++);
-   else if (curDirection == DIRECTION_WEST) SetXCoordinate(xCoordinate--);
+   if (curDirection == DIRECTION_NORTH) SetYCoordinate(yCoordinate + 1);
+   else if (curDirection == DIRECTION_SOUTH) SetYCoordinate(yCoordinate - 1);
+   else if (curDirection == DIRECTION_EAST) SetXCoordinate(xCoordinate + 1);
+   else if (curDirection == DIRECTION_WEST) SetXCoordinate(xCoordinate - 1);
+
+   return IsValidCurrentDirection();
 }
 
-void Robot::Left()
+bool Robot::Left()
 {
-   direction.RotateCounterClockwise(1);
+   RotateCounterClockwise(1);
+   return IsValidCurrentDirection();
 }
 
-void Robot::Right()
+bool Robot::Right()
 {
-   direction.RotateClockwise(1);
+   RotateClockwise(1);
+   return IsValidCurrentDirection();
 }
 
-void Robot::Report()
+bool Robot::Report()
 {
-   size_t& xCoordinate = GetCoordinate().first;
-   size_t& yCoordinate = GetCoordinate().second;
-   printf("Output: %zu,%zu,%s", xCoordinate, yCoordinate, direction.GetDirectionString().c_str());
-}
-
-size_t Robot::GetXCoordinate() const
-{
-   // Move position to table
-   return coordinate.first;
-}
-
-size_t Robot::GetYCoordinate() const
-{
-   return coordinate.second;
-}
-
-void Robot::SetXCoordinate(const size_t x)
-{
-   if (!table.isValidXPosition(x)) return;
-
-   coordinate.first = x;
-}
-
-void Robot::SetYCoordinate(const size_t y)
-{
-   if (!table.isValidYPosition(y)) return;
-   coordinate.second = y;
-}
-
-void Robot::SetCoordinate(const tCoordinate& crd)
-{
-   if (!table.isValidPosition(crd)) return;
-
-   coordinate = crd;
-}
-
-tCoordinate& Robot::GetCoordinate()
-{
-   return coordinate;
-}
-
-void Robot::SetDirection(const Direction& drt)
-{
-   direction.SetCurrectDirection(drt.GetCurrentDirection());
-}
-
-Direction& Robot::GetDirection()
-{
-   return direction;
+   printf("Output: %zu,%zu,%s\n", GetCoordinate().first, GetCoordinate().second, GetDirectionString().c_str());
+   return true;
 }
 

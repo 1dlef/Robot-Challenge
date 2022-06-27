@@ -4,34 +4,44 @@
 #include "table.h"
 
 class Command {
-
 public:
-   virtual void execute() = 0;
+   virtual bool execute(std::string params) = 0;
+   static bool bInit;
 };
 
-class PlaceCmd : public Command {
-
+class PlaceCmd:public Command {
 public:
-   PlaceCmd(Robot*, Table*);
-   Robot* robot;
-   Table* table;
-   int iX;
-   int iY;
-   int iFace;
+   PlaceCmd(Robot&);
+   Robot& robot;
 
-   virtual void execute() override;
+   virtual bool execute(std::string params) override;
 };
 
-class FaceCmd : public Command {
+class RotateCmd : public Command {
+public:
+   RotateCmd(Robot&, bool bClockWise);
+   Robot& robot;
 
+   virtual bool execute(std::string params) override;
+
+private:
+   bool bClockWise;
 };
 
 class MoveCmd : public Command {
+public:
+   MoveCmd(Robot&);
+   Robot& robot;
 
+   virtual bool execute(std::string params) override;
 };
 
 class ReportCmd : public Command {
+public:
+   ReportCmd(Robot&);
+   Robot& robot;
 
+   virtual bool execute(std::string params) override;
 };
 
 

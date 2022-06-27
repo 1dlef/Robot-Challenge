@@ -18,12 +18,12 @@ size_t Table::getColumns() const
 
 bool Table::isValidXPosition(size_t _nRow) const
 {
-   return (_nRow > 0) && (_nRow < getRows());
+   return (_nRow >= 0) && (_nRow < getRows());
 }
 
 bool Table::isValidYPosition(size_t _nCol) const
 {
-   return (_nCol > 0) && (_nCol < getColumns());
+   return (_nCol >= 0) && (_nCol < getColumns());
 }
 
 bool Table::isValidPosition(size_t nRow, size_t nCol) const
@@ -41,4 +41,3 @@ bool Table::isValidPosition(tCoordinate coor) const
 
    return (bValidRow && bValidCol);
 }
-
