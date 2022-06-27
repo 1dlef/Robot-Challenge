@@ -1,0 +1,28 @@
+@startuml
+' incomplete diagram
+class Robot
+class Coordinate
+class Direction
+class Table
+abstract Command
+class PlaceCmd 
+class MoveCmd 
+class RotateCmd
+class ReportCmd
+class CommandParser
+
+
+Robot <|-- Coordinate
+Robot <|-- Direction
+Coordinate <-- Table
+Robot --> PlaceCmd
+Robot --> MoveCmd
+Robot --> RotateCmd
+Robot --> ReportCmd
+
+PlaceCmd <|-- Command
+MoveCmd <|-- Command
+RotateCmd <|-- Command
+ReportCmd <|-- Command
+Command --> CommandParser
+@enduml
