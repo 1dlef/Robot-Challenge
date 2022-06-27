@@ -24,6 +24,8 @@ namespace commandtest
 			Assert::AreEqual(false, oPlaceCmd.execute("1,2,NrTH"));
 			Assert::AreEqual(false, oPlaceCmd.execute("a,2,NrTH"));
 			Assert::AreEqual(false, oPlaceCmd.execute(""));
+
+			Command::bInit = false; // Just to reset
 		}
 
 		TEST_METHOD(Test2_MoveCmd)
@@ -40,6 +42,8 @@ namespace commandtest
 			Assert::AreEqual(true, oMoveCmd.execute(""));
 			Assert::AreEqual(false, oMoveCmd.execute("1,2,NORTH"));
 
+			Command::bInit = false; // Just to reset
+
 		}
 		TEST_METHOD(Test4_RotateCmd_Left)
 		{
@@ -54,6 +58,8 @@ namespace commandtest
 
 			Assert::AreEqual(true, oRotateCmd.execute(""));
 			Assert::AreEqual(false, oRotateCmd.execute("1,2,NORTH"));
+
+			Command::bInit = false; // Just to reset
 		}
 		TEST_METHOD(Test4_RotateCmd_Right)
 		{
@@ -68,6 +74,8 @@ namespace commandtest
 
 			Assert::AreEqual(true, oRotateCmd.execute(""));
 			Assert::AreEqual(false, oRotateCmd.execute("1,2,NORTH"));
+
+			Command::bInit = false; // Just to reset
 		}
 
 		TEST_METHOD(Test4_ReportCmd)
@@ -83,6 +91,8 @@ namespace commandtest
 
 			Assert::AreEqual(true, oReportCmd.execute(""));
 			Assert::AreEqual(false, oReportCmd.execute("1,2,NORTH"));
+
+			Command::bInit = false; // Just to reset
 		}
 	};
 }
