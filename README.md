@@ -6,11 +6,11 @@
 * The robot is free to roam around the surface of the table, but must be prevented from falling to destruction. Any movement that would result in the robot falling from the table must be prevented, however further valid movement commands must still be allowed.
 * Create an application that can read in commands of the following form:
 
-PLACE X,Y,F
-MOVE
-LEFT
-RIGHT
-REPORT
+PLACE X,Y,F  
+MOVE  
+LEFT  
+RIGHT  
+REPORT  
 
 * PLACE will put the toy robot on the table in position X,Y and facing NORTH, SOUTH, EAST or WEST.
 * The origin (0,0) can be considered to be the SOUTH WEST most corner.
@@ -31,19 +31,19 @@ REPORT
 
 ### Example a
 
-PLACE 0,0,NORTH
-MOVE
-REPORT
+PLACE 0,0,NORTH  
+MOVE  
+REPORT  
 
 #### Expected output:
 
-0,1,NORTH
+0,1,NORTH  
 
 ### Example b
 
-PLACE 0,0,NORTH
-LEFT
-REPORT
+PLACE 0,0,NORTH  
+LEFT  
+REPORT  
 
 #### Expected output:
 
@@ -51,12 +51,12 @@ REPORT
 
 ### Example c
 
-PLACE 1,2,EAST
-MOVE
-MOVE
-LEFT
-MOVE
-REPORT
+PLACE 1,2,EAST  
+MOVE  
+MOVE  
+LEFT  
+MOVE  
+REPORT  
 
 #### Expected output
 
@@ -64,9 +64,9 @@ REPORT
 
 ## Building the project
 
-The project is built using:
-Microsoft Visual Studio Professional 2022 (64-bit) - Current
-Version 17.2.4
+The project is built using:  
+Microsoft Visual Studio Professional 2022 (64-bit)  
+Current Version 17.2.4  
 
 1. Open toyrobot.vcxproj
 2. Under Build tab, click Build->Rebuild Solution
@@ -74,9 +74,9 @@ Version 17.2.4
 
 ## Running unit test
 
-The project is tested using Microsoft Unit Testing Framework for C++
-Microsoft Visual Studio Professional 2022 (64-bit) - Current
-Version 17.2.4
+The project is tested using Microsoft Unit Testing Framework for C++  
+Microsoft Visual Studio Professional 2022 (64-bit)  
+Current Version 17.2.4  
 
 1. Open toyrobot.vcxproj
 2. Under Build tab, click Build->Rebuild Solution
@@ -85,6 +85,6 @@ Version 17.2.4
 5. Test should run without errors
 
 ## Additional documentation
-See class diagram under docs/robot_class.puml
+See class diagram under docs/robot_class.puml  
 Diagram is built using PlantUML, can view using VSCode by installing the PlantUML extension
 
