@@ -13,9 +13,9 @@ bool CommandParser::AddCommand(std::string str, std::shared_ptr<Command> pcmd)
    return true;
 }
 
-bool CommandParser::ExecuteCommand(std::string sCmd)
+bool CommandParser::ExecuteCommand(std::string sCmdParam)
 {
-   if (sCmd.empty()) return false;
+   if (sCmdParam.empty()) return false;
 
    std::string delimiter_space = " ";
 
@@ -23,7 +23,7 @@ bool CommandParser::ExecuteCommand(std::string sCmd)
    bool result = false;
 
    std::vector<std::string> vString;
-   get_tokens(vString, sCmd, delimiter_space);
+   get_tokens(vString, sCmdParam, delimiter_space);
 
    if (cmd.find(vString[0]) == cmd.end()) return false;                          // Command is not found
    if (vString.size() == 1) result = cmd[vString[0]].get()->execute("");         // Command with no params

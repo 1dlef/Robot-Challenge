@@ -1,17 +1,28 @@
 @startuml
-class Robot {
+' incomplete diagram
+class Robot
+class Coordinate
+class Direction
+class Table
+abstract Command
+class PlaceCmd 
+class MoveCmd 
+class RotateCmd
+class ReportCmd
+class CommandParser
 
-}
 
-class Controller {
+Robot <|-- Coordinate
+Robot <|-- Direction
+Coordinate <-- Table
+Robot --> PlaceCmd
+Robot --> MoveCmd
+Robot --> RotateCmd
+Robot --> ReportCmd
 
-}
-
-class Table {
-
-}
-
-Driver - Robot : controls >
-Robot *- Wheel : have 4 >
-Robot -- Person : < owns
+PlaceCmd <|-- Command
+MoveCmd <|-- Command
+RotateCmd <|-- Command
+ReportCmd <|-- Command
+Command --> CommandParser
 @enduml
